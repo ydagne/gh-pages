@@ -1,0 +1,59 @@
+# Site wide configuration
+
+title: Yihenew
+locale: en_US
+description: Personal page
+logo: #site-logo.png
+url: http://yihenew.com/
+
+# Jekyll configuration
+
+permalink:   /:categories/:title/
+markdown:    kramdown
+highlighter: rouge
+sass:
+  sass_dir: _sass
+  style: compressed
+plugins:
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+
+kramdown:
+  input: GFM
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..2
+  enable_coderay: false
+
+mathjax: true
+
+include: [".htaccess"]
+exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", ".less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md", "vendor"]
+
+comments: true
+
+# Site owner
+owner:
+  name: Yihenew beyene
+  avatar: bio-yihenew.jpg
+  email: yihenew.beyene@aalto.fi
+  disqus-shortname: #xx
+  twitter: #
+  facebook: #
+  github: ydagne
+  stackexchange:
+  linkedin: yihenew-dagne-beyene-007a0440
+  instagram: #
+  flickr:
+  tumblr: #
+  pinterest:
+  weibo:
+  #google:
+  #  plus: xx
+  #  analytics: xx
+  #  verify: xxxx
+  #  ad-client: xx
+  #  ad-slot: xx
+  #bing-verify: xx

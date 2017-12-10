@@ -13,16 +13,15 @@ share: true
 modified: 2017-12-04T16:11:53-04:00
 ---
 
-After experimenting with Amazon's EC2 compute instance, I decided to setup a webserver on CentOS machine and deploy a [Wordpress](https://wordpress.com/) website. While doing this, I documented the steps I followed from start to finish. Though there are plenty (and better) of online resources and tutorials, I will share with you what I did in case you find it useful.
+After experimenting with the Amazon's EC2 compute instance, I decided to setup a webserver on a CentOS machine and deploy a [Wordpress](https://wordpress.com/) website. While doing this, I documented the steps I followed from start to finish. Though there are plenty (and better) of online resources and tutorials, I will share with you what I did in case you find it useful.
 
 
-This is a quick guide for setting up LAMP stack and installing  [Wordpress](https://wordpress.com/) on a [CentOS](https://www.centos.org/) machine. If you new to web technologies and do not know what LAMP stack is, check [this post](/blog/web-application-101/) for a brief introduction.
-In order to follow this guide, you need to have access to CentOS machine either locally or remotely (for example, through ssh connection).
+This is a quick guide for setting up LAMP stack and installing  [Wordpress](https://wordpress.com/) on a [CentOS](https://www.centos.org/) machine. If you are new to web technologies and do not know what LAMP stack is, check [this post](/blog/web-application-101/) for a brief introduction. In order to follow this guide, you need to have access to a CentOS machine either locally or remotely (for example, through `ssh` connection).
 
-[CentOS](https://www.centos.org/) has long (10 years) release support. Each version of CentOS receives feature enhancements and new hardware support until 7 years, and security updates until 10 years after general availability. However, support for point releases (eg. CentOS 6.3) will be no longer available once a new point release (eg. CentOS 6.4) is available for the same version. At the time of this writing 7.3 is the latest version. However, 6.8 is the final point release for version 6. Hence, it is better use CentOS 6.8 since the final point release for version 7 is yet unknown. CentOS is available in two images: minimal and full DVD (contains all packages available for the respective version). The following instructions assume that you have installed the minimal version.
+[CentOS](https://www.centos.org/) has a long (10 years) release support. Each version of CentOS receives feature enhancements and new hardware support until 7 years, and security updates until 10 years after general availability. However, support for point releases (eg. CentOS 6.3) will no longer be available once a new point release (eg. CentOS 6.4) is available for the same version. At the time of this writing 7.3 is the latest version. However, 6.8 is the final point release for version 6. Hence, it is better use CentOS 6.8 since the final point release for version 7 is yet unknown. CentOS is available in two images: minimal and full DVD (contains all packages available for the respective version). The following instructions assume that you have installed the minimal version of CentOS.
 
 ## STEP 1: INITIAL SERVER SETUP
-After a fresh install, it is recommended to install updates.
+After a fresh install of CentOS, it is recommended to install updates.
     
     $ sudo yum update
 
@@ -32,19 +31,19 @@ You may want to change the root password. To do that run the following command.
 
 The following instructions are optional. You can continue from _**STEP 2**_.
 
-If you want to create a new user account, eg. _john_, then run this command.
+If you want to create a new user account, eg. `john`, then run this command.
     
     $ sudo adduser john
 
-Then you can set password for _john_ (eg 123456) as follows
+Then you can set password for `john` (eg 123456) as follows
     
     $ sudo passwd john 123456
     
-Even though you login with _john_'s credentials, you still need the root password in order to run some commands (eg. installing packages, making system configuration changes). You can avoid this by adding _john_ into the _sodoers_ group. The _sudoers_ group name in CentOS is _wheel_.
+Even though you login with `john`'s credentials, you still need the root password in order to run some commands (eg. installing packages and making changes to system configurations). You can avoid this by adding `john` into the `sodoers` group. The `sudoers` group name in CentOS is `wheel`.
     
     $ sudo gpasswd -a john wheel
  
-Now every time you run commands with sudo, you will not be prompted for the root password. Make sure that you use a strong password for any user (especially the ones that are in sudoers group).
+Now every time you run commands with sudo, you will not be prompted for the root password. Make sure that you use a strong password for any user (especially the ones that are in `sudoers` group).
 
 ## Step 2: LAMP SERVER SETUP
 
@@ -66,11 +65,11 @@ Enable apache to start on boot
 
     # systemctl enable httpd.service
 
-Configuration file for Apache is located at _/etc/httpd/conf/httpd.conf_. Open this file and search for _"DocumentRoot"_. By default, you will see the following
+Configuration file for Apache is located at `/etc/httpd/conf/httpd.conf`. Open this file and search for `"DocumentRoot"`. By default, you will see the following
 
     DocumentRoot "/var/www/html/"
 
-This means, Apache will serve websites that are hosted in _/var/www/html_ directory. By default, if Apache doesn't find an index file (eg. index.html), it will show directory listing of all files in _/var/www/html_ directory. This will expose all the files in this director to the public. In order to disable directory listing, open _/etc/httpd/conf/httpd.conf_ file and within `<Directory "/var/www/html">` directive, remove `"Indexes"` from the list of `Options`. Eg. If you find something like the following
+This means, Apache will serve websites that are hosted in `/var/www/html` directory. By default, if Apache doesn't find an index file (eg. index.html), it will show directory listing of all files in `/var/www/html` directory. This will expose all the files in this director to the public. In order to disable directory listing, open `/etc/httpd/conf/httpd.conf` file and within `<Directory "/var/www/html">` directive, remove `"Indexes"` from the list of `Options`. Eg. If you find something like the following
     
     Options Indexes, FollowSymLinks
 

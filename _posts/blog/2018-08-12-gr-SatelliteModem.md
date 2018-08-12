@@ -6,14 +6,14 @@ categories: blog
 tags: [sdr, c++, python]
 comments: true
 share: true
-modified: 2018-08-12T12:48:50-04:00
+modified: 2018-08-12T12:54:50-04:00
 link: https://github.com/ydagne/gr-SatelliteModem
 ---
 
 
 ## gr-SatelliteModem - GNU Radio-based satelltie modem
 
-**SatelliteModem** is a GNU Radio module that offers single-carrier satellite communications capablility. The module contains GNU Radio blocks which can be used to transmit and/or receive data over the air (eg. over satellite frequencies). Currently, the module supports differential BPSK and QPSK modulation, rate-1/2, 3/4 and 7/8 convolutional coding rates. A range of data rates can be achieved through use of different combination of modulations, coding rates and sampling rates.
+**gr-SatelliteModem** is a GNU Radio module that offers single-carrier satellite communications capablility. The module contains GNU Radio blocks which can be used to transmit and/or receive data over the air (eg. over satellite frequencies). Currently, the module supports differential BPSK and QPSK modulation, rate-1/2, 3/4 and 7/8 convolutional coding rates. A range of data rates can be achieved through use of different combination of modulations, coding rates and sampling rates.
 
 ## Installation
 Before installing **SatelliteModem**, make sure that you have already installed the latest version Gnuradio. The module has been tested against Gnuradio v3.7.9. Any radio front-end can be used as long as it is supported by Gnuradio and has both TX and RX antenna ports. UHD-based example can be found in `examples/` folder. The module was created using Gnuradio templating engine called **gr_modtool** which automates creation of out-of-tree modules. The installation process follows standard CMake project installation.

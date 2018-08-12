@@ -32,7 +32,7 @@ Before installing **SatelliteModem**, make sure that you have already installed 
 Currently, supported modulation formats are Differencial BPSK (DBPSK) and Differential QPSK (DQPSK). The modulator converts data bytes (each byte contains 8 data-bits) into symbols. The number of bits per symbol is either 1 (for DBPSK) or 2 (for DQPSK). Then each of the symbols is mapped to one of the constellation points (complex symbols). Finally, the complex symbols are fed to a pulse-shaping filter. The filter is Root-Raised Cosine (RRC) filter, and exact replica of this filter is used at the receiver such that all the signal energy is coherently combined without causing Inter-Symbol interference (ISI). Figure below shows both the modulator and demodulator connected over a fading channel simulator. In practice, communication over a radio channel suffers from signal distortion caused by the propagation medium and hardware imperfections such as clock drift. For successful reception, the receiver has to compensate for such distortions. Oscillators used by the transmitter and the receiver are far from being ideal. A mismatch between these oscillators introduces carrier frequency offset and clock skew. Moreover, the receiver may receive multiple reflections of the transmitted signal each arriving at the receiver with slightly different delays and phases. Hence, the receiver has to adaptively compensate (equalize) for channel fading caused by such multi-path propagation. Once this is done, a matched-filter (RRC filter) is used to down-sample the signal and recover transmitted symbols. DPSK demodulator de-maps the complex symbols back to bits. Output of the demodulator is a stream of floating-point numbers, or **soft-bits**, (instead of hard-decision 1's and 0's). The magnitude of a **soft-bit** corresponds to the reliability of the demodulated bit. 
 
 <figure>
-	<img src="./docs/latex/Images/modulation.png" alt="">
+	<img src="/images/blog/grsatellite-modulation.png" alt="">
 </figure>
 
 
@@ -52,7 +52,7 @@ Without a time-synchronization mechanism, the receiver is not able to identify t
 Error-correcting codes such as Viterbi (convolutional) encoding add extra redundancy to transmited data such that the receiver is able to correct errornous bits. The coding rate determines the maximum number of errornous bits that can be corrected. **SatelliteModem**'s encoder supports two channel encoders: Viterbi and Low-Density Parity Check (LDPC) codes. Viterbi encoder can be configured to one of three coding rates: 1/2, 3/4 and 7/8. Currently, LDPC supports only one coding rate which is 0.42.
 
 <figure>
-	<img src="./images/blog/grsatellite-fec.png" alt="">
+	<img src="/images/blog/grsatellite-fec.png" alt="">
 </figure>
 
 ### Packet Encoder
@@ -66,7 +66,7 @@ Packet encoder serves two main functions. First, it packs stream of data bytes i
 A 16-bit CRC is added in order to detect errornous packets. **SatelliteModem** has two alternative packet encoder/decoder blocks. One of them is **Packetizer/Depacketizer**. These blocks are written in Python. The **Packetizer** block reads bytes from a UDP port and encodes them into packets. The size of UDP packets should not exceed **MTU**. In case, the size of a UDP packet is less than **MTU**, padding bytes are appended at the end. However, the CRC is computed only for the payload part excluding padding bytes. The **Depacketizer** block, on the other hand, validates the CRC header, and writes the payload into another UDP port. 
 
 <figure>
-	<img src="./images/blog/grsatellite-framing1.png" alt="">
+	<img src="/images/blog/grsatellite-framing1.png" alt="">
 </figure>
 
 
